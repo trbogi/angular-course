@@ -19,11 +19,11 @@ export class RecipeEditComponent implements OnInit {
     this.route.params.subscribe((params:Params) => {
       this.id = +params['id']
       this.editMode = params['id'] != null
-      //this.initForm()
+      this.initForm()
     })
   }
 
-  /*private initForm(): void {
+  private initForm(): void {
     let recipeName = ''
     let imgPath = ''
     let description = ''
@@ -49,7 +49,7 @@ export class RecipeEditComponent implements OnInit {
       description: new FormControl(description, Validators.required),
       ingredients: ingredients
     })
-  }*/
+  }
 
   onSubmit(){
     if(this.editMode){
