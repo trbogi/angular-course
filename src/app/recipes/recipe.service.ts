@@ -1,7 +1,9 @@
 import {Recipe} from "./recipe.model";
 import {Ingredient} from "../shared/ingredient.model";
+import {Subject} from "rxjs";
 
 export class RecipeService{
+  recipesChanged = new Subject<Recipe[]>()
 
   private recipes: Recipe[] = [
       new Recipe("Test Recipe",
@@ -22,5 +24,15 @@ export class RecipeService{
 
   getRecipeById(id: number): Recipe{
     return this.recipes[id]
+  }
+
+  updateRecipe(index: number, updatedRecipe: Recipe){
+    this.recipes[index] = updatedRecipe
+    this.recipesChanged.next(this.recipes.slice())
+  }
+
+  addRecipe(newRecipe: Recipe){
+    this.recipes.push(newRecipe)
+    this.recipesChanged.next(this.recipes.slice())
   }
 }
