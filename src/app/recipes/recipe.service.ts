@@ -18,8 +18,13 @@ export class RecipeService{
           new Ingredient('lettuce', 3),])
   ]
 
-  get(): Recipe[]{
+  getRecipes(): Recipe[]{
     return this.recipes.slice();
+  }
+
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes
+    this.recipesChanged.next(this.recipes.slice())
   }
 
   getRecipeById(id: number): Recipe{
