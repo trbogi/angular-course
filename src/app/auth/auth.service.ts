@@ -29,7 +29,7 @@ export class AuthService{
     const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate))
     if (loadedUser.token){
       this.user.next(loadedUser)
-      const expirationDuration =  (new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()) * 1000
+      const expirationDuration =  new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
       this.autoLogout(expirationDuration)
     }
   }
@@ -63,8 +63,7 @@ export class AuthService{
   }
 
   autoLogout(expirationDuration: number){
-    console.log(expirationDuration)
-    this.logoutTimer = setTimeout(() => this.logout(), expirationDuration)
+    this.logoutTimer = setTimeout(() => this.logout(), expirationDuration * 1000)
   }
 
   logout(){
